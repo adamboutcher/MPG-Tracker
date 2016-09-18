@@ -14,7 +14,7 @@ if ( ( (isset($_POST['odo'])) ) && ( (isset($_POST['cost']))&&(!empty($_POST['co
 	if ( (!isset($_POST['fdate'])) || empty($_POST['fdate']) ) {
 		$fdate = date("d-m-Y");
 	} else {
-		$fdate = date("d-m-Y", $_POST['fdate']);
+		$fdate = date("d-m-Y", strtotime($_POST['fdate']."00:00"));
 	}
 	$cpl = round(($_POST['cost']/$_POST['litre']),3);
 	$qry = $db->query("SELECT litre FROM mpg ORDER BY id DESC LIMIT 1;");
@@ -46,10 +46,10 @@ if ( (isset($_POST['id']))&&(!empty($_POST['id'])) ){
 		<title>MPG</title>
 		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous" />
 		<style>
-		body      { padding:10px 25px; }
-		.label-fw { width:75px; }
-		.input-group .form-control { height:35px; }
-		tr:nth-child(2) { background-color:#5bc0de; }
+		body      							{ padding:10px 25px; }
+		.label-fw 							{ width:75px; }
+		.input-group .form-control 			{ height:35px; }
+		tr:nth-child(2) 					{ background-color:#5bc0de; }
 		</style>
 	</head>
 	<body>
@@ -88,6 +88,9 @@ if ( (isset($_POST['id']))&&(!empty($_POST['id'])) ){
 		<table class="table table-hover table-condensed">
 			<tr><th class="hidden-xs hidden-sm hidden-md">Fuel Date</th><th>Odo</th><th>Cost (&pound;)</th><th>Litre</th><th class="hidden-xs hidden-sm hidden-md">Cost/Litre (&pound;)</th><th>MPG</th><th></th></tr>
 <?PHP
+			$total['odo']=0;
+			$total['cost']=0;
+			$total['litre']=0;
 			$qry = $db->query("SELECT * FROM mpg ORDER BY id DESC;");
 			$result = $qry->fetchAll();
 			//$result = array_reverse($result);
