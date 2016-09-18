@@ -49,6 +49,7 @@ if ( (isset($_POST['id']))&&(!empty($_POST['id'])) ){
 		body      { padding:10px 25px; }
 		.label-fw { width:75px; }
 		.input-group .form-control { height:35px; }
+		tr:nth-child(2) { background-color:#5bc0de; }
 		</style>
 	</head>
 	<body>
